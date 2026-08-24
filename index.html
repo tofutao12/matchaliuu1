@@ -209,14 +209,15 @@
             <button id="copy-btn" onclick="copyCode()" class="w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-[#3b4d3c] font-bold text-sm shadow-sm transition-all mb-3 flex justify-center items-center gap-2">
                 <i class="fa-solid fa-copy"></i> <span id="copy-text">คัดลอกรหัส (Copy)</span>
             </button>
-            <button onclick="closeModal()" class="w-full py-3 rounded-xl bg-[#f48fb1] hover:bg-[#ec407a] text-white font-bold text-sm shadow-md transition-all">
-                ตกลง / ปิดหน้าต่าง 💚
-            </button>
+            
+            <!-- ปุ่มพุ่งเข้ากลุ่มไลน์ร้านโดยตรง -->
+            <a href="https://line.me/ti/g/yrRX6m37wt" target="_blank" class="block w-full py-3 rounded-xl bg-[#f48fb1] hover:bg-[#ec407a] text-white font-bold text-sm shadow-md transition-all text-center">
+                เข้ากลุ่มไลน์ห้องเอฟ 💚
+            </a>
         </div>
     </div>
 
     <script>
-        // ลิงก์ใหม่ล่าสุดที่เชื่อมต่อหลังบ้านสมบูรณ์แบบ
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyulxvqDVQBTmpKA9CAmzuu3SIKy52Q3Tv_7GAWadt2cF-9eZCiWT5rX2uOnr9tGkH94g/exec';
         
         const form = document.forms['matcha-form'];
@@ -273,7 +274,7 @@
                 }, 2500);
             });
         }
-        function closeModal() { modal.classList.add('hidden'); }
+        
         function fireConfetti() {
             var count = 200;
             var defaults = { origin: { y: 0.7 }, zIndex: 9999 };
