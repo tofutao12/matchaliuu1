@@ -86,12 +86,12 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="py-8 px-4 flex items-center justify-center min-h-screen">
+<body class="py-6 px-4 flex items-center justify-center min-h-screen"> <!-- ลด py-8 เหลือ py-6 -->
 
     <div class="max-w-md w-full flex flex-col">
         
-        <!-- โลโก้ลอยๆ (ปรับให้ชิดแบนเนอร์ด้านล่างมากขึ้น) -->
-        <div class="flex justify-center items-center mb-1 mt-2">
+        <!-- โลโก้ลอยๆ (ลดระยะห่างด้านล่าง mt-0 mb-1 ให้ชิดป้ายเลย) -->
+        <div class="flex justify-center items-center mt-0 mb-1">
             <img src="โลโก้ห้องเอฟมัทฉะ.png" alt="โลโก้ร้าน" class="w-40 wiggle drop-shadow-[0_10px_15px_rgba(244,143,177,0.4)]">
         </div>
 
@@ -112,7 +112,7 @@
             <img src="ป้ายห้องเอฟมัทฉะต้นหลิว.png" alt="ป้ายห้องเอฟมัทฉะต้นหลิว" class="w-full h-auto object-contain rounded-2xl shadow-md border-2 border-white">
         </div>
 
-        <!-- ฟอร์มกรอกข้อมูล -->
+        <!-- ฟอร์มกรอกข้อมูล (แก้ไอคอนหลุดกรอบแล้ว) -->
         <div class="form-card p-6 md:p-8">
             <form id="matcha-form" name="matcha-form" class="space-y-4 text-left">
                 
@@ -140,9 +140,9 @@
                 <div>
                     <label class="block text-xs font-bold text-[#3b4d3c] mb-1.5 ml-3">ไอดีไลน์</label>
                     <div class="relative flex items-center">
-                        <input type="text" name="ไอดีไลน์" required placeholder="Line ID ของคุณ" class="w-full py-3 pl-12 pr-4 text-sm rounded-full">
-                        <div class="icon-container absolute left-4.5 pointer-events-none transition-colors">
-                            <i class="fa-brands fa-line text-[#00c300] text-lg"></i>
+                        <input type="text" name="ไอดีไลน์" required placeholder="Line ID ของคุณ" class="w-full py-3 pl-10 pr-4 text-sm rounded-full">
+                        <div class="icon-container absolute left-4 pointer-events-none transition-colors">
+                            <i class="fa-brands fa-line text-[#00c300]"></i>
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                 <div>
                     <label class="block text-xs font-bold text-[#3b4d3c] mb-1.5 ml-3">ลิงก์ไลน์</label>
                     <div class="relative flex items-center">
-                        <input type="url" name="ลิงก์ไลน์" required placeholder="https://line.me/ti/p/..." class="w-full py-3 pl-12 pr-4 text-sm rounded-full">
+                        <input type="url" name="ลิงก์ไลน์" required placeholder="https://line.me/ti/p/..." class="w-full py-3 pl-10 pr-4 text-sm rounded-full">
                         <div class="icon-container absolute left-4 pointer-events-none transition-colors">
                             <i class="fa-solid fa-link text-[#81c784]"></i>
                         </div>
@@ -160,9 +160,9 @@
                 <div>
                     <label class="block text-xs font-bold text-[#3b4d3c] mb-1.5 ml-3">ชื่อเฟส</label>
                     <div class="relative flex items-center">
-                        <input type="text" name="ชื่อเฟส" required placeholder="ชื่อ Facebook ที่ใช้เอฟ" class="w-full py-3 pl-12 pr-4 text-sm rounded-full">
-                        <div class="icon-container absolute left-4.5 pointer-events-none transition-colors">
-                            <i class="fa-brands fa-facebook text-[#f48fb1] text-lg"></i>
+                        <input type="text" name="ชื่อเฟส" required placeholder="ชื่อ Facebook ที่ใช้เอฟ" class="w-full py-3 pl-10 pr-4 text-sm rounded-full">
+                        <div class="icon-container absolute left-4 pointer-events-none transition-colors">
+                            <i class="fa-brands fa-facebook text-[#f48fb1]"></i>
                         </div>
                     </div>
                 </div>
@@ -170,9 +170,9 @@
                 <div>
                     <label class="block text-xs font-bold text-[#3b4d3c] mb-1.5 ml-3">ไอจี</label>
                     <div class="relative flex items-center">
-                        <input type="text" name="ไอจี" placeholder="Instagram ของคุณ" class="w-full py-3 pl-12 pr-4 text-sm rounded-full">
-                        <div class="icon-container absolute left-4.5 pointer-events-none transition-colors">
-                            <i class="fa-brands fa-instagram text-[#f48fb1] text-lg"></i>
+                        <input type="text" name="ไอจี" placeholder="Instagram ของคุณ" class="w-full py-3 pl-10 pr-4 text-sm rounded-full">
+                        <div class="icon-container absolute left-4 pointer-events-none transition-colors">
+                            <i class="fa-brands fa-instagram text-[#f48fb1]"></i>
                         </div>
                     </div>
                 </div>
@@ -180,7 +180,7 @@
                 <div>
                     <label class="block text-xs font-bold text-[#c2185b] mb-1.5 ml-3">G-mail <span class="font-normal text-[10px]">(ต้องตรงกับเมลรับไฟล์งาน)</span></label>
                     <div class="relative flex items-center">
-                        <input type="email" name="G-mail" required placeholder="example@gmail.com" class="w-full py-3 pl-12 pr-4 text-sm rounded-full border-[#fce4ec]">
+                        <input type="email" name="G-mail" required placeholder="example@gmail.com" class="w-full py-3 pl-10 pr-4 text-sm rounded-full border-[#fce4ec]">
                         <div class="icon-container absolute left-4 pointer-events-none transition-colors">
                             <i class="fa-solid fa-envelope text-[#c2185b]"></i>
                         </div>
@@ -221,7 +221,6 @@
     </div>
 
     <script>
-        // ใส่ลิงก์ URL ใหม่ที่อาเต๋าส่งมาให้
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwc7Aix4I2UGU5Bde3GmhqRVE1_OPUS2Uo0bJgEKuY1G_mEYG4MAZ-sLhgKThTY_Avxjw/exec';
         
         const form = document.forms['matcha-form'];
@@ -249,7 +248,6 @@
                     if(data.code) { 
                         resultCode.innerText = data.code; 
                     } else {
-                        // ดักกรณีหลังบ้านไม่ส่งโค้ดกลับมา
                         resultCode.innerText = 'สำเร็จ'; 
                     }
                     
