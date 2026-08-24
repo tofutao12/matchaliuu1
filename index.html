@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ลงทะเบียนห้องเอฟ - Matcha Tonliuu 🧋🌱</title>
-    <!-- นำเข้า Tailwind CSS เพื่อความสวยงาม -->
+    <!-- นำเข้า Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- นำเข้า FontAwesome (ไอคอนทึบ) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- นำเข้าฟอนต์ Kanit -->
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- นำเข้า Canvas Confetti สำหรับเอฟเฟกต์ฉลอง -->
+    <!-- นำเข้า Canvas Confetti (พลุฉลองตอนได้รหัส) -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
         body { 
             font-family: 'Kanit', sans-serif; 
-            /* พื้นหลังลายทางสีเขียวมัทฉะพาสเทล */
+            /* พื้นหลังลายทางมัทฉะพาสเทลอ่อนๆ */
             background: repeating-linear-gradient(
                 45deg,
                 #f4f9f4,
@@ -27,25 +27,44 @@
             color: #3b4d3c;
         }
 
-        .form-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 2rem;
-            box-shadow: 0 10px 30px rgba(134, 197, 145, 0.3);
-            border: 2px solid #e2f0d9;
+        /* โลโก้ดุ๊กดิ๊ก */
+        .wiggle {
+            animation: wiggle 3s ease-in-out infinite;
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg) translateY(-3px); }
         }
 
-        /* กล่องอินพุต */
+        /* ข้อความวิ่ง (Marquee) */
+        .marquee-container {
+            background: #fce4ec; /* สีชมพูพาสเทล */
+            color: #c2185b;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
+        /* ตกแต่ง Input Form */
         .input-group { position: relative; }
         .input-group i {
             position: absolute;
             top: 50%;
             left: 1rem;
             transform: translateY(-50%);
-            color: #81c784; /* ไอคอนสีเขียวมัทฉะ */
+            color: #81c784; 
             font-size: 1.1rem;
             transition: color 0.3s;
         }
-        .input-group.pink-icon i { color: #f48fb1; } /* ไอคอนสีชมพู */
+        .input-group.pink-icon i { color: #f48fb1; }
 
         input {
             background-color: #fafdf9 !important;
@@ -75,33 +94,6 @@
         }
         .btn-matcha:disabled { opacity: 0.7; cursor: not-allowed; }
 
-        /* โลโก้ดุ๊กดิ๊ก */
-        .wiggle {
-            animation: wiggle 3s ease-in-out infinite;
-        }
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(-2deg); }
-            50% { transform: rotate(2deg) translateY(-3px); }
-        }
-
-        /* ข้อความวิ่ง */
-        .marquee-container {
-            background: #fce4ec;
-            color: #c2185b;
-            border: 1px dashed #f48fb1;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        .marquee-text {
-            display: inline-block;
-            padding-left: 100%;
-            animation: marquee 20s linear infinite;
-        }
-        @keyframes marquee {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-100%, 0); }
-        }
-
         /* โหลดเดอร์ */
         .loader {
             border: 3px solid #f3f3f3;
@@ -115,31 +107,34 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="py-10 px-4 flex items-center justify-center min-h-screen">
+<body class="py-8 px-4 flex items-center justify-center min-h-screen">
 
-    <div class="max-w-lg w-full">
+    <!-- กล่องหลัก (กำหนดความกว้างให้พอดีมือถือ) -->
+    <div class="max-w-md w-full flex flex-col gap-4">
         
-        <!-- ส่วนหัวร้าน: โลโก้ และ แบนเนอร์ -->
-        <div class="text-center mb-6 flex flex-col items-center gap-3">
-            <!-- 1. โลโก้ดุ๊กดิ๊กแบบไม่มีพื้นหลัง -->
-            <img src="โลโก้ห้องเอฟมัทฉะ.png" alt="โลโก้ร้าน" class="w-48 wiggle drop-shadow-md">
+        <!-- ส่วนที่ 1: กรอบโลโก้ชื่อร้าน (ทึบสีมัทฉะ ขอบชมพูพาสเทล) -->
+        <div class="bg-[#e8f5e9] border-2 border-[#f48fb1] rounded-3xl p-5 shadow-sm flex justify-center items-center relative overflow-hidden">
+            <!-- เอฟเฟกต์แสงวิ้งๆ ในกรอบ -->
+            <div class="absolute top-0 right-0 w-16 h-16 bg-white opacity-40 rounded-full blur-2xl transform translate-x-1/2 -translate-y-1/2"></div>
             
-            <!-- โน้ตข้อความวิ่ง (Marquee) -->
-            <div class="marquee-container w-full rounded-full py-1.5 px-4 text-xs font-semibold shadow-sm mb-1">
-                <span class="marquee-text">
-                    🌟 ยินดีต้อนรับสู่ห้องเอฟ Matcha Tonliuu 🧋🌱 | ⚠️ อย่าลืม! ช่อง Gmail ต้องเป็นเมลเดียวกันกับที่ใช้รับไฟล์งานนะคะ | 💚 ได้รับรหัสแล้วอย่าลืมนำไปรายงานตัวในกลุ่มไลน์ห้องเอฟด้วยน้า ✨
-                </span>
-            </div>
-
-            <!-- 2. ป้ายห้องเอฟมัทฉะ (แนวยาว) -->
-            <img src="ป้ายห้องเอฟมัทฉะ.png" alt="แบนเนอร์แนวยาว" class="w-full rounded-2xl shadow-md border-2 border-white">
-            
-            <!-- 3. ป้ายห้องเอฟมัทฉะต้นหลิว -->
-            <img src="ป้ายห้องเอฟมัทฉะต้นหลิว.png" alt="ป้ายชื่อร้าน" class="w-full rounded-2xl shadow-md border-2 border-white">
+            <img src="โลโก้ห้องเอฟมัทฉะ.png" alt="โลโก้ร้าน" class="w-48 wiggle drop-shadow-md relative z-10">
         </div>
 
-        <!-- ฟอร์มกรอกข้อมูล -->
-        <div class="form-card p-6 md:p-8">
+        <!-- ส่วนที่ 2: กรอบ 2 แบนเนอร์ (ขอบสีชมพู พอดีมือถือ) -->
+        <div class="bg-white border-2 border-[#f48fb1] rounded-3xl p-3 shadow-sm flex flex-col gap-3">
+            <img src="ป้ายห้องเอฟมัทฉะ.png" alt="ป้ายห้องเอฟมัทฉะ" class="w-full h-auto object-contain rounded-xl border border-gray-100">
+            <img src="ป้ายห้องเอฟมัทฉะต้นหลิว.png" alt="ป้ายห้องเอฟมัทฉะต้นหลิว" class="w-full h-auto object-contain rounded-xl border border-gray-100">
+        </div>
+
+        <!-- ส่วนที่ 3: โน้ตข้อความวิ่ง (สีชมพูพาสเทล) -->
+        <div class="marquee-container w-full rounded-full py-2 px-4 text-xs font-semibold shadow-sm border border-[#f48fb1]">
+            <span class="marquee-text">
+                🌟 ยินดีต้อนรับสู่ห้องเอฟ Matcha Tonliuu 🧋🌱 | ⚠️ อย่าลืม! ช่อง Gmail ต้องเป็นเมลเดียวกันกับที่ใช้รับไฟล์งานนะคะ | 💚 ได้รับรหัสแล้วอย่าลืมนำไปรายงานตัวในกลุ่มไลน์ห้องเอฟด้วยน้า ✨
+            </span>
+        </div>
+
+        <!-- ส่วนที่ 4: ฟอร์มกรอกข้อมูล -->
+        <div class="bg-white/95 border-2 border-[#e2f0d9] rounded-3xl p-6 md:p-8 shadow-lg mt-2">
             <form id="matcha-form" name="matcha-form" class="space-y-4 text-left">
                 
                 <div class="grid grid-cols-2 gap-4">
@@ -205,7 +200,7 @@
             
             <!-- กล่องแสดงรหัส -->
             <div class="my-5 py-4 bg-[#f4f9f4] border-2 border-dashed border-[#81c784] rounded-2xl relative">
-                <span id="result-code" class="text-3xl font-black text-[#4caf50] tracking-widest drop-shadow-sm">MT001</span>
+                <span id="result-code" class="text-4xl font-black text-[#4caf50] tracking-widest drop-shadow-sm"></span>
             </div>
 
             <!-- ข้อความเตือนสำคัญ -->
@@ -249,21 +244,16 @@
             fetch(scriptURL, { method: 'POST', body: new FormData(form)})
                 .then(response => response.json())
                 .then(data => {
-                    // ปิดสถานะโหลด
                     spinner.style.display = 'none';
                     btnText.innerText = 'ยืนยันข้อมูลลงทะเบียน 🍵🌸';
                     submitBtn.disabled = false;
                     
-                    // แสดงรหัสที่ได้รับ
                     if(data.code) {
                         resultCode.innerText = data.code;
                     }
                     
-                    // เปิดป๊อปอัป + ยิงพลุฉลอง
                     modal.classList.remove('hidden');
                     fireConfetti();
-                    
-                    // ล้างข้อมูลฟอร์ม
                     form.reset();
                 })
                 .catch(error => {
@@ -279,12 +269,10 @@
         function copyCode() {
             const codeToCopy = resultCode.innerText;
             navigator.clipboard.writeText(codeToCopy).then(() => {
-                // เปลี่ยนหน้าตาปุ่มเมื่อก๊อปปี้สำเร็จ
                 copyBtn.classList.remove('bg-gray-100', 'text-[#3b4d3c]');
                 copyBtn.classList.add('bg-[#81c784]', 'text-white');
                 copyText.innerText = 'คัดลอกสำเร็จแล้ว! ✨';
                 
-                // คืนค่าปุ่มกลับมาหลังผ่านไป 2.5 วินาที
                 setTimeout(() => {
                     copyBtn.classList.add('bg-gray-100', 'text-[#3b4d3c]');
                     copyBtn.classList.remove('bg-[#81c784]', 'text-white');
@@ -293,331 +281,11 @@
             });
         }
 
-        // ฟังก์ชันปิดป๊อปอัป
         function closeModal() {
             modal.classList.add('hidden');
         }
 
-        // ฟังก์ชันยิงพลุ Confetti
-        function fireConfetti() {
-            var count = 200;
-            var defaults = { origin: { y: 0.7 }, zIndex: 9999 };
-
-            function fire(particleRatio, opts) {
-                confetti(Object.assign({}, defaults, opts, {
-                    particleCount: Math.floor(count * particleRatio)
-                }));
-            }
-
-            fire(0.25, { spread: 26, startVelocity: 55 });
-            fire(0.2, { spread: 60 });
-            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-            fire(0.1, { spread: 120, startVelocity: 45 });
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ลงทะเบียนห้องเอฟ - Matcha Tonliuu 🧋🌱</title>
-    <!-- นำเข้า Tailwind CSS เพื่อความสวยงาม -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- นำเข้า FontAwesome (ไอคอนทึบ) -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- นำเข้าฟอนต์ Kanit -->
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- นำเข้า Canvas Confetti สำหรับเอฟเฟกต์ฉลอง -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
-    <style>
-        body { 
-            font-family: 'Kanit', sans-serif; 
-            /* พื้นหลังลายทางสีเขียวมัทฉะพาสเทล */
-            background: repeating-linear-gradient(
-                45deg,
-                #f4f9f4,
-                #f4f9f4 20px,
-                #e8f5e9 20px,
-                #e8f5e9 40px
-            );
-            color: #3b4d3c;
-        }
-
-        .form-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 2rem;
-            box-shadow: 0 10px 30px rgba(134, 197, 145, 0.3);
-            border: 2px solid #e2f0d9;
-        }
-
-        /* กล่องอินพุต */
-        .input-group { position: relative; }
-        .input-group i {
-            position: absolute;
-            top: 50%;
-            left: 1rem;
-            transform: translateY(-50%);
-            color: #81c784; /* ไอคอนสีเขียวมัทฉะ */
-            font-size: 1.1rem;
-            transition: color 0.3s;
-        }
-        .input-group.pink-icon i { color: #f48fb1; } /* ไอคอนสีชมพู */
-
-        input {
-            background-color: #fafdf9 !important;
-            border: 2px solid #c8e6c9 !important;
-            color: #2e4d32 !important;
-            padding-left: 2.8rem !important;
-            transition: all 0.3s;
-        }
-        input:focus {
-            outline: none;
-            border-color: #f472b6 !important;
-            box-shadow: 0 0 10px rgba(244, 114, 182, 0.2) !important;
-        }
-        input:focus + i { color: #f472b6 !important; }
-
-        /* ปุ่มกด */
-        .btn-matcha {
-            background: linear-gradient(135deg, #81c784, #4caf50);
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-        }
-        .btn-matcha:hover:not(:disabled) {
-            transform: translateY(-2px);
-            background: linear-gradient(135deg, #f48fb1, #ec407a);
-            box-shadow: 0 6px 20px rgba(236, 64, 122, 0.4);
-        }
-        .btn-matcha:disabled { opacity: 0.7; cursor: not-allowed; }
-
-        /* โลโก้ดุ๊กดิ๊ก */
-        .wiggle {
-            animation: wiggle 3s ease-in-out infinite;
-        }
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(-2deg); }
-            50% { transform: rotate(2deg) translateY(-3px); }
-        }
-
-        /* ข้อความวิ่ง */
-        .marquee-container {
-            background: #fce4ec;
-            color: #c2185b;
-            border: 1px dashed #f48fb1;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        .marquee-text {
-            display: inline-block;
-            padding-left: 100%;
-            animation: marquee 20s linear infinite;
-        }
-        @keyframes marquee {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-100%, 0); }
-        }
-
-        /* โหลดเดอร์ */
-        .loader {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #ffffff;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            animation: spin 1s linear infinite;
-            display: none;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    </style>
-</head>
-<body class="py-10 px-4 flex items-center justify-center min-h-screen">
-
-    <div class="max-w-lg w-full">
-        
-        <!-- ส่วนหัวร้าน: โลโก้ และ แบนเนอร์ -->
-        <div class="text-center mb-6 flex flex-col items-center gap-3">
-            <!-- 1. โลโก้ดุ๊กดิ๊กแบบไม่มีพื้นหลัง -->
-            <img src="โลโก้ห้องเอฟมัทฉะ.png" alt="โลโก้ร้าน" class="w-48 wiggle drop-shadow-md">
-            
-            <!-- โน้ตข้อความวิ่ง (Marquee) -->
-            <div class="marquee-container w-full rounded-full py-1.5 px-4 text-xs font-semibold shadow-sm mb-1">
-                <span class="marquee-text">
-                    🌟 ยินดีต้อนรับสู่ห้องเอฟ Matcha Tonliuu 🧋🌱 | ⚠️ อย่าลืม! ช่อง Gmail ต้องเป็นเมลเดียวกันกับที่ใช้รับไฟล์งานนะคะ | 💚 ได้รับรหัสแล้วอย่าลืมนำไปรายงานตัวในกลุ่มไลน์ห้องเอฟด้วยน้า ✨
-                </span>
-            </div>
-
-            <!-- 2. ป้ายห้องเอฟมัทฉะ (แนวยาว) -->
-            <img src="ป้ายห้องเอฟมัทฉะ.png" alt="แบนเนอร์แนวยาว" class="w-full rounded-2xl shadow-md border-2 border-white">
-            
-            <!-- 3. ป้ายห้องเอฟมัทฉะต้นหลิว -->
-            <img src="ป้ายห้องเอฟมัทฉะต้นหลิว.png" alt="ป้ายชื่อร้าน" class="w-full rounded-2xl shadow-md border-2 border-white">
-        </div>
-
-        <!-- ฟอร์มกรอกข้อมูล -->
-        <div class="form-card p-6 md:p-8">
-            <form id="matcha-form" name="matcha-form" class="space-y-4 text-left">
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="input-group">
-                        <label class="block text-xs font-bold text-[#3b4d3c] mb-1">📅 วัน</label>
-                        <i class="fa-solid fa-calendar-days"></i>
-                        <input type="date" name="วัน" required class="w-full p-3 text-sm rounded-xl">
-                    </div>
-                    <div class="input-group">
-                        <label class="block text-xs font-bold text-[#3b4d3c] mb-1">⏰ เวลา</label>
-                        <i class="fa-solid fa-clock"></i>
-                        <input type="time" name="เวลา" required class="w-full p-3 text-sm rounded-xl">
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label class="block text-xs font-bold text-[#3b4d3c] mb-1">💬 ไอดีไลน์</label>
-                    <i class="fa-brands fa-line text-[#00c300]"></i>
-                    <input type="text" name="ไอดีไลน์" required placeholder="Line ID ของคุณ" class="w-full p-3 text-sm rounded-xl">
-                </div>
-
-                <div class="input-group">
-                    <label class="block text-xs font-bold text-[#3b4d3c] mb-1">🌐 ลิงก์ไลน์</label>
-                    <i class="fa-solid fa-link"></i>
-                    <input type="url" name="ลิงก์ไลน์" required placeholder="https://line.me/ti/p/..." class="w-full p-3 text-sm rounded-xl">
-                </div>
-
-                <div class="input-group pink-icon">
-                    <label class="block text-xs font-bold text-[#3b4d3c] mb-1">📘 ชื่อเฟส</label>
-                    <i class="fa-brands fa-facebook"></i>
-                    <input type="text" name="ชื่อเฟส" required placeholder="ชื่อ Facebook ที่ใช้เอฟ" class="w-full p-3 text-sm rounded-xl">
-                </div>
-
-                <div class="input-group pink-icon">
-                    <label class="block text-xs font-bold text-[#3b4d3c] mb-1">📸 ไอจี</label>
-                    <i class="fa-brands fa-instagram"></i>
-                    <input type="text" name="ไอจี" placeholder="Instagram ของคุณ" class="w-full p-3 text-sm rounded-xl">
-                </div>
-
-                <div class="input-group">
-                    <label class="block text-xs font-bold text-[#c2185b] mb-1">📧 G-mail <span class="font-normal text-[10px]">(ต้องตรงกับเมลรับไฟล์งาน)</span></label>
-                    <i class="fa-solid fa-envelope text-[#c2185b]"></i>
-                    <input type="email" name="G-mail" required placeholder="example@gmail.com" class="w-full p-3 text-sm rounded-xl border-[#f48fb1]">
-                </div>
-
-                <button type="submit" id="submit-btn" class="w-full btn-matcha py-3.5 rounded-xl font-bold text-sm mt-6 flex justify-center items-center gap-2">
-                    <span id="btn-text">ยืนยันข้อมูลลงทะเบียน 🍵🌸</span>
-                    <div class="loader" id="loading-spinner"></div>
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal ป๊อปอัปโชว์รหัส (เด้งหลังส่งสำเร็จ) -->
-    <div id="success-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50 transition-opacity">
-        <div class="bg-white rounded-[2rem] p-8 max-w-sm w-full text-center border-4 border-[#e8f5e9] shadow-2xl relative overflow-hidden">
-            <!-- ดีไซน์ตกแต่งป๊อปอัป -->
-            <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-[#81c784] to-[#f48fb1]"></div>
-            
-            <div class="text-5xl mb-3 text-[#f48fb1]"><i class="fa-solid fa-circle-check"></i></div>
-            <h3 class="text-xl font-bold text-[#2e4d32]">ลงทะเบียนสำเร็จแล้วค่า! 🌸</h3>
-            <p class="text-sm text-gray-500 mt-2">นี่คือรหัสประจำตัวของคุณสำหรับใช้เอฟงาน:</p>
-            
-            <!-- กล่องแสดงรหัส -->
-            <div class="my-5 py-4 bg-[#f4f9f4] border-2 border-dashed border-[#81c784] rounded-2xl relative">
-                <span id="result-code" class="text-3xl font-black text-[#4caf50] tracking-widest drop-shadow-sm">MT001</span>
-            </div>
-
-            <!-- ข้อความเตือนสำคัญ -->
-            <div class="bg-[#fff0f5] text-[#c2185b] text-xs p-3 rounded-xl mb-5 font-medium border border-[#fce4ec]">
-                ⚠️ <b>คำเตือน:</b> เมื่อกดเข้ากลุ่มไลน์แล้ว อย่าลืมส่งรหัสนี้รายงานตัวในห้องทันทีนะคะ! ✨
-            </div>
-
-            <!-- ปุ่มก๊อปปี้คลิกเดียว -->
-            <button id="copy-btn" onclick="copyCode()" class="w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-[#3b4d3c] font-bold text-sm shadow-sm transition-all mb-3 flex justify-center items-center gap-2">
-                <i class="fa-solid fa-copy"></i> <span id="copy-text">คัดลอกรหัส (Copy)</span>
-            </button>
-
-            <!-- ปุ่มปิด -->
-            <button onclick="closeModal()" class="w-full py-3 rounded-xl bg-[#f48fb1] hover:bg-[#ec407a] text-white font-bold text-sm shadow-md transition-all">
-                ตกลง / ปิดหน้าต่าง 💚
-            </button>
-        </div>
-    </div>
-
-    <script>
-        // ลิงก์ API จากอาเต๋า
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwc7Aix4I2UGU5Bde3GmhqRVE1_OPUS2Uo0bJgEKuY1G_mEYG4MAZ-sLhgKThTY_Avxjw/exec';
-        
-        const form = document.forms['matcha-form'];
-        const btnText = document.getElementById('btn-text');
-        const spinner = document.getElementById('loading-spinner');
-        const submitBtn = document.getElementById('submit-btn');
-        const modal = document.getElementById('success-modal');
-        const resultCode = document.getElementById('result-code');
-        const copyBtn = document.getElementById('copy-btn');
-        const copyText = document.getElementById('copy-text');
-
-        // ฟังก์ชันเมื่อกดส่งฟอร์ม
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-
-            btnText.innerText = 'กำลังออกรหัสให้คุณ... ✨';
-            spinner.style.display = 'block';
-            submitBtn.disabled = true;
-
-            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-                .then(response => response.json())
-                .then(data => {
-                    // ปิดสถานะโหลด
-                    spinner.style.display = 'none';
-                    btnText.innerText = 'ยืนยันข้อมูลลงทะเบียน 🍵🌸';
-                    submitBtn.disabled = false;
-                    
-                    // แสดงรหัสที่ได้รับ
-                    if(data.code) {
-                        resultCode.innerText = data.code;
-                    }
-                    
-                    // เปิดป๊อปอัป + ยิงพลุฉลอง
-                    modal.classList.remove('hidden');
-                    fireConfetti();
-                    
-                    // ล้างข้อมูลฟอร์ม
-                    form.reset();
-                })
-                .catch(error => {
-                    console.error('Error!', error.message);
-                    alert('เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้งค่ะ');
-                    spinner.style.display = 'none';
-                    btnText.innerText = 'ยืนยันข้อมูลลงทะเบียน 🍵🌸';
-                    submitBtn.disabled = false;
-                });
-        });
-
-        // ฟังก์ชันคัดลอกรหัสคลิกเดียว
-        function copyCode() {
-            const codeToCopy = resultCode.innerText;
-            navigator.clipboard.writeText(codeToCopy).then(() => {
-                // เปลี่ยนหน้าตาปุ่มเมื่อก๊อปปี้สำเร็จ
-                copyBtn.classList.remove('bg-gray-100', 'text-[#3b4d3c]');
-                copyBtn.classList.add('bg-[#81c784]', 'text-white');
-                copyText.innerText = 'คัดลอกสำเร็จแล้ว! ✨';
-                
-                // คืนค่าปุ่มกลับมาหลังผ่านไป 2.5 วินาที
-                setTimeout(() => {
-                    copyBtn.classList.add('bg-gray-100', 'text-[#3b4d3c]');
-                    copyBtn.classList.remove('bg-[#81c784]', 'text-white');
-                    copyText.innerText = 'คัดลอกรหัส (Copy)';
-                }, 2500);
-            });
-        }
-
-        // ฟังก์ชันปิดป๊อปอัป
-        function closeModal() {
-            modal.classList.add('hidden');
-        }
-
-        // ฟังก์ชันยิงพลุ Confetti
+        // ฟังก์ชันยิงพลุ
         function fireConfetti() {
             var count = 200;
             var defaults = { origin: { y: 0.7 }, zIndex: 9999 };
