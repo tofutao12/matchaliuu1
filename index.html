@@ -7,7 +7,7 @@
     <title>ลงทะเบียนห้องเอฟ - Matcha Tonliuu 🧋🌱</title>
     <meta property="og:title" content="ลงทะเบียนห้องเอฟ - Matcha Tonliuu 🧋🌱">
     <meta property="og:description" content="ยินดีต้อนรับสู่ห้องเอฟตูนเฉพาะลายเส้นคุณต้นหลิว กรอกข้อมูลเพื่อรับรหัสเข้ากลุ่มเลยค่า 🌸">
-    <meta property="og:image" content="โลโก้ห้องเอฟมัทฉะ.png">
+    <meta property="og:image" content="โลโก้ห้องเอฟมัทฉะ.png"> 
     <meta property="og:type" content="website">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -86,33 +86,28 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="py-6 px-4 flex items-center justify-center min-h-screen"> <!-- ลด py-8 เหลือ py-6 -->
+<body class="py-6 px-4 flex items-center justify-center min-h-screen">
 
     <div class="max-w-md w-full flex flex-col">
         
-        <!-- โลโก้ลอยๆ (ลดระยะห่างด้านล่าง mt-0 mb-1 ให้ชิดป้ายเลย) -->
         <div class="flex justify-center items-center mt-0 mb-1">
             <img src="โลโก้ห้องเอฟมัทฉะ.png" alt="โลโก้ร้าน" class="w-40 wiggle drop-shadow-[0_10px_15px_rgba(244,143,177,0.4)]">
         </div>
 
-        <!-- แบนเนอร์ยาว -->
         <div class="mb-3">
             <img src="ป้ายห้องเอฟมัทฉะ.png" alt="ป้ายห้องเอฟมัทฉะ" class="w-full h-auto object-contain rounded-2xl shadow-md border-2 border-white">
         </div>
 
-        <!-- โน้ตวิ่ง -->
         <div class="marquee-container w-full rounded-full py-2.5 px-4 text-xs font-semibold mb-3 border border-white">
             <span class="marquee-text">
                 🌟 ยินดีต้อนรับสู่ห้องเอฟ Matcha Tonliuu 🧋🌱 | ⚠️ อย่าลืม! ช่อง Gmail ต้องเป็นเมลเดียวกันกับที่ใช้รับไฟล์งานนะคะ | 💚 ได้รับรหัสแล้วอย่าลืมนำไปรายงานตัวในกลุ่มไลน์ด้วยน้า ✨
             </span>
         </div>
 
-        <!-- แบนเนอร์ใหญ่ -->
         <div class="mb-5">
             <img src="ป้ายห้องเอฟมัทฉะต้นหลิว.png" alt="ป้ายห้องเอฟมัทฉะต้นหลิว" class="w-full h-auto object-contain rounded-2xl shadow-md border-2 border-white">
         </div>
 
-        <!-- ฟอร์มกรอกข้อมูล (แก้ไอคอนหลุดกรอบแล้ว) -->
         <div class="form-card p-6 md:p-8">
             <form id="matcha-form" name="matcha-form" class="space-y-4 text-left">
                 
@@ -221,6 +216,7 @@
     </div>
 
     <script>
+        // ลิงก์ใหม่ที่อาเต๋าอัปเดตล่าสุด
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwc7Aix4I2UGU5Bde3GmhqRVE1_OPUS2Uo0bJgEKuY1G_mEYG4MAZ-sLhgKThTY_Avxjw/exec';
         
         const form = document.forms['matcha-form'];
